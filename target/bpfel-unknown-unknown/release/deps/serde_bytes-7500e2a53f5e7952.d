@@ -1,0 +1,11 @@
+/Users/JustaJunk/Desktop/pythaplex/target/bpfel-unknown-unknown/release/deps/serde_bytes-7500e2a53f5e7952.rmeta: /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/lib.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytes.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/de.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/ser.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytebuf.rs
+
+/Users/JustaJunk/Desktop/pythaplex/target/bpfel-unknown-unknown/release/deps/libserde_bytes-7500e2a53f5e7952.rlib: /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/lib.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytes.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/de.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/ser.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytebuf.rs
+
+/Users/JustaJunk/Desktop/pythaplex/target/bpfel-unknown-unknown/release/deps/serde_bytes-7500e2a53f5e7952.d: /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/lib.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytes.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/de.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/ser.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytebuf.rs
+
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/lib.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytes.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/de.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/ser.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_bytes-0.11.5/src/bytebuf.rs:

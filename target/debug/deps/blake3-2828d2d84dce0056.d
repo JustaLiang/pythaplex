@@ -1,0 +1,14 @@
+/Users/JustaJunk/Desktop/pythaplex/target/debug/deps/blake3-2828d2d84dce0056.rmeta: /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/lib.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/guts.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/platform.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_avx2.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_avx512.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/portable.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_sse2.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_sse41.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/traits.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/join.rs
+
+/Users/JustaJunk/Desktop/pythaplex/target/debug/deps/blake3-2828d2d84dce0056.d: /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/lib.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/guts.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/platform.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_avx2.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_avx512.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/portable.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_sse2.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_sse41.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/traits.rs /Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/join.rs
+
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/lib.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/guts.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/platform.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_avx2.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_avx512.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/portable.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_sse2.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/ffi_sse41.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/traits.rs:
+/Users/JustaJunk/.cargo/registry/src/github.com-1ecc6299db9ec823/blake3-0.3.8/src/join.rs:
