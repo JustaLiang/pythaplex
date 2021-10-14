@@ -1,7 +1,7 @@
 const assert = require("assert");
 const anchor = require("@project-serum/anchor");
-const { test } = require("mocha");
-const { expect } = require("chai");
+// const { test } = require("mocha");
+// const { expect } = require("chai");
 const { SystemProgram, PublicKey } = anchor.web3;
 
 describe('pythaplex', () => {
@@ -54,7 +54,6 @@ describe('pythaplex', () => {
       }
     );
     await program.rpc.open(
-      true,
       {
         accounts: {
           tradingAccount: tradingAccount.publicKey,
@@ -81,7 +80,6 @@ describe('pythaplex', () => {
     );
     try {
       await program.rpc.open(
-        true,
         {
           accounts: {
             tradingAccount: tradingAccount.publicKey,
@@ -113,7 +111,6 @@ describe('pythaplex', () => {
       }
     );
     await program.rpc.open(
-      true,
       {
         accounts: {
           tradingAccount: tradingAccount.publicKey,

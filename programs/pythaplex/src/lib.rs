@@ -15,7 +15,6 @@ pub mod pythaplex {
         let pyth_price_acc = &ctx.remaining_accounts[0];
         trading_account.authority = authority;
         trading_account.pyth_price_pubkey = *pyth_price_acc.key;
-        trading_account.long = true;
         trading_account.closed = true;
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
@@ -25,7 +24,7 @@ pub mod pythaplex {
         Ok(())
     }
 
-    pub fn open(ctx: Context<Open>, open_long: bool) -> ProgramResult {
+    pub fn open(ctx: Context<Open>) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         let pyth_price_acc = &ctx.remaining_accounts[0];
         msg!("check position: {}",
@@ -44,15 +43,11 @@ pub mod pythaplex {
             trading_account.pyth_price_pubkey == *pyth_price_acc.key,
             ErrCode::DifferentOracle
         );
-        trading_account.long = open_long;
         trading_account.closed = false;
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
         trading_account.latest_price = pyth_price_data.agg.price;
-        msg!("{} at {}",
-            match trading_account.long {true => "long", false => "short"},
-            trading_account.latest_price
-        );
+        msg!("long at {}", trading_account.latest_price);
         Ok(())
     }
 
@@ -89,7 +84,7 @@ pub mod pythaplex {
 // Transaction instructions
 #[derive(Accounts)]
 pub struct Create<'info> {
-    #[account(init, payer = user, space = 40+40+1+1+8+8)]
+    #[account(init, payer = user, space = 40+40+1+8+8)]
     pub trading_account: Account<'info, TradingAccount>,
     #[account(mut)]
     pub user: Signer<'info>,
@@ -110,17 +105,17 @@ pub struct Close<'info> {
     pub authority: Signer<'info>,
 }
 
-// An account that goes inside a transaction instruction
+// An account storing trading info
 #[account]
 pub struct TradingAccount {
     pub authority: Pubkey,
     pub pyth_price_pubkey: Pubkey,
-    pub long: bool,
     pub closed: bool,
     pub latest_price: i64,
     pub roi: i64,
 }
 
+//  
 #[error]
 pub enum ErrCode {
     #[msg("using different oracle")]
