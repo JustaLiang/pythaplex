@@ -12,6 +12,12 @@ describe('pythaplex', () => {
     pubkey: new PublicKey("H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG"),
   };
 
+  const oracleAdaUsd = {
+    isSigner: false,
+    isWritable: false,
+    pubkey: new PublicKey("3pyn4svBbxJ9Wnn3RVeafyLWfzie6yC5eTig2S62v9SC"),
+  }
+
   // Configure the client to use the local cluster.
   const provider = anchor.Provider.env();
   anchor.setProvider(provider);
@@ -19,7 +25,7 @@ describe('pythaplex', () => {
 
   it('Create a trading account', async () => {
     const tradingAccount = anchor.web3.Keypair.generate();
-    const tx = await program.rpc.create(
+    await program.rpc.create(
       provider.wallet.publicKey,
       {
         accounts: {
@@ -31,9 +37,8 @@ describe('pythaplex', () => {
         signers: [tradingAccount],
       }
     );
-    console.log("Your transaction signature", tx);
-
   });
+
   it('Open long position', async () => {
     const tradingAccount = anchor.web3.Keypair.generate();
     await program.rpc.create(
@@ -48,7 +53,7 @@ describe('pythaplex', () => {
         signers: [tradingAccount],
       }
     );
-    const openTx = await program.rpc.open(
+    await program.rpc.open(
       true,
       {
         accounts: {
@@ -58,15 +63,10 @@ describe('pythaplex', () => {
         remainingAccounts: [oracleSolUsd],
       }
     );
-    console.log("Your open transaction signature", openTx);
   });
+
   it('Open long position but not the same oracle', async () => {
     const tradingAccount = anchor.web3.Keypair.generate();
-    const oracleAdaUsd = {
-      isSigner: false,
-      isWritable: false,
-      pubkey: new PublicKey("3pyn4svBbxJ9Wnn3RVeafyLWfzie6yC5eTig2S62v9SC"),
-    }
     await program.rpc.create(
       provider.wallet.publicKey,
       {
@@ -79,26 +79,27 @@ describe('pythaplex', () => {
         signers: [tradingAccount],
       }
     );
-    await program.rpc.open(
-      true,
-      {
-        accounts: {
-          tradingAccount: tradingAccount.publicKey,
-          authority: provider.wallet.publicKey,
-        },
-        remainingAccounts: [oracleAdaUsd],
-      }
-    );
-
-    console.log("Your open transaction signature", openTx);
+    try {
+      await program.rpc.open(
+        true,
+        {
+          accounts: {
+            tradingAccount: tradingAccount.publicKey,
+            authority: provider.wallet.publicKey,
+          },
+          remainingAccounts: [oracleAdaUsd],
+        }
+      );
+    } catch(err) {
+      assert.equal(
+        err.toString(),
+        "using different oracle"
+      );
+    }
   });
+
   it('Open and close a position', async () => {
     const tradingAccount = anchor.web3.Keypair.generate();
-    const oracleAdaUsd = {
-      isSigner: false,
-      isWritable: false,
-      pubkey: new PublicKey("3pyn4svBbxJ9Wnn3RVeafyLWfzie6yC5eTig2S62v9SC"),
-    }
     await program.rpc.create(
       provider.wallet.publicKey,
       {
@@ -121,8 +122,7 @@ describe('pythaplex', () => {
         remainingAccounts: [oracleSolUsd],
       }
     );
-    
-    const tx = await program.rpc.close(
+    await program.rpc.close(
       {
         accounts: {
           tradingAccount: tradingAccount.publicKey,
@@ -131,16 +131,10 @@ describe('pythaplex', () => {
         remainingAccounts: [oracleSolUsd],
       }
     );
-    
-    console.log("successfully closed position", tx);
   });
+
   it('Close a not open position', async () => {
     const tradingAccount = anchor.web3.Keypair.generate();
-    const oracleAdaUsd = {
-      isSigner: false,
-      isWritable: false,
-      pubkey: new PublicKey("3pyn4svBbxJ9Wnn3RVeafyLWfzie6yC5eTig2S62v9SC"),
-    }
     await program.rpc.create(
       provider.wallet.publicKey,
       {
@@ -153,18 +147,22 @@ describe('pythaplex', () => {
         signers: [tradingAccount],
       }
     );
-    
-    const tx = await program.rpc.close(
-      {
-        accounts: {
-          tradingAccount: tradingAccount.publicKey,
-          authority: provider.wallet.publicKey,
-        },
-        remainingAccounts: [oracleSolUsd],
-      }
-    );
-    
-    console.log("successfully closed position", tx);
+    try {
+      await program.rpc.close(
+        {
+          accounts: {
+            tradingAccount: tradingAccount.publicKey,
+            authority: provider.wallet.publicKey,
+          },
+          remainingAccounts: [oracleSolUsd],
+        }
+      );
+    } catch(err) {
+      assert.equal(
+        err.toString(),
+        "position already closed"
+      );
+    }
   });
 });
 

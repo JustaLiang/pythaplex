@@ -28,39 +28,59 @@ pub mod pythaplex {
     pub fn open(ctx: Context<Open>, open_long: bool) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         let pyth_price_acc = &ctx.remaining_accounts[0];
-        assert_eq!(trading_account.closed, true,"Your position is open!");
-        if trading_account.pyth_price_pubkey!=(*pyth_price_acc.key) {
-            return Err(ProgramError::InvalidInstructionData);
-        }
-        // assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key),"You use different oracle!");
-        //update price
+        msg!("check position: {}",
+            match trading_account.closed {
+                true => "closed", false => "opened"}
+        );
+        require!(
+            trading_account.closed,
+            ErrCode::PositionOpened
+        );
+        msg!("check oracle: \n{} \n{}",
+            trading_account.pyth_price_pubkey,
+            *pyth_price_acc.key
+        );
+        require!(
+            trading_account.pyth_price_pubkey == *pyth_price_acc.key,
+            ErrCode::DifferentOracle
+        );
         trading_account.long = open_long;
         trading_account.closed = false;
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
-        //update price
         trading_account.latest_price = pyth_price_data.agg.price;
-        msg!("price: {}", trading_account.latest_price);
-
-        msg!(
-            "open: {} position",
-            match open_long {
-                true => "long",
-                false => "short",
-            }
+        msg!("{} at {}",
+            match trading_account.long {true => "long", false => "short"},
+            trading_account.latest_price
         );
         Ok(())
     }
+
     pub fn close(ctx: Context<Close>) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         let pyth_price_acc = &ctx.remaining_accounts[0];
-        assert_eq!(trading_account.closed, false,"Your position is closed!");
-        assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key),"You use different oracle!");
+        msg!("check position: {}",
+            match trading_account.closed {
+                true => "closed", false => "opened"}
+        );
+        require!(
+            !trading_account.closed,
+            ErrCode::PositionClosed
+        );
+        msg!("check oracle: \n{} \n{}",
+            trading_account.pyth_price_pubkey,
+            *pyth_price_acc.key
+        );
+        require!(
+            trading_account.pyth_price_pubkey == *pyth_price_acc.key,
+            ErrCode::DifferentOracle
+        );
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
-        trading_account.roi = (pyth_price_data.agg.price - trading_account.latest_price)
-            / trading_account.latest_price
-            * 1000;
+        trading_account.roi =
+            (pyth_price_data.agg.price - trading_account.latest_price)
+            * 1000 / trading_account.latest_price;
+        msg!("roi: {}", trading_account.roi);
         trading_account.closed = true;
         Ok(())
     }
@@ -99,4 +119,14 @@ pub struct TradingAccount {
     pub closed: bool,
     pub latest_price: i64,
     pub roi: i64,
+}
+
+#[error]
+pub enum ErrCode {
+    #[msg("using different oracle")]
+    DifferentOracle,
+    #[msg("position already closed")]
+    PositionClosed,
+    #[msg("position already opened")]
+    PositionOpened,
 }
