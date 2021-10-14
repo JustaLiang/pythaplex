@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("CBHQsfr9CSKgqbGBXdc6U9JuhmfCDBzagERt3YvgGDD3");
 
 #[program]
 pub mod pythaplex {
@@ -10,7 +10,6 @@ pub mod pythaplex {
             ctx: Context<Initialize>,
             authority: Pubkey) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
-        msg!("remaining_accounts.length: {}", ctx.remaining_accounts.len());
         let pyth_price_acc = &ctx.remaining_accounts[0];
         trading_account.authority = authority;
         trading_account.pyth_price_pubkey = *pyth_price_acc.key;
@@ -18,6 +17,7 @@ pub mod pythaplex {
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
         trading_account.latest_price = pyth_price_data.agg.price;
+        msg!("price: {}", trading_account.latest_price);
         trading_account.roi = 0;
         Ok(())
     }
