@@ -28,14 +28,16 @@ pub mod pythaplex {
     pub fn open(ctx: Context<Open>, open_long: bool) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         let pyth_price_acc = &ctx.remaining_accounts[0];
+        assert_eq!(trading_account.closed, true);
         assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key));
         //update price
+        trading_account.long = open_long;
+        trading_account.closed = false;
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
         trading_account.latest_price = pyth_price_data.agg.price;
         msg!("price: {}", trading_account.latest_price);
         //set long position
-        trading_account.long = open_long;
 
         msg!(
             "open: {} position",
@@ -46,12 +48,25 @@ pub mod pythaplex {
         );
         Ok(())
     }
+    pub fn close(ctx: Context<Close>) -> ProgramResult {
+        let trading_account = &mut ctx.accounts.trading_account;
+        let pyth_price_acc = &ctx.remaining_accounts[0];
+        assert_eq!(trading_account.closed, false);
+        assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key));
+        let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
+        let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
+        trading_account.roi = (pyth_price_data.agg.price - trading_account.latest_price)
+            / trading_account.latest_price
+            * 1000;
+        trading_account.closed = true;
+        Ok(())
+    }
 }
 
 // Transaction instructions
 #[derive(Accounts)]
 pub struct Create<'info> {
-    #[account(init, payer = user, space = 40+40+1+1+8+2)]
+    #[account(init, payer = user, space = 40+40+1+1+8+8)]
     pub trading_account: Account<'info, TradingAccount>,
     #[account(mut)]
     pub user: Signer<'info>,
@@ -65,6 +80,13 @@ pub struct Open<'info> {
     pub authority: Signer<'info>,
 }
 
+#[derive(Accounts)]
+pub struct Close<'info> {
+    #[account(mut, has_one = authority)]
+    pub trading_account: Account<'info, TradingAccount>,
+    pub authority: Signer<'info>,
+}
+
 // An account that goes inside a transaction instruction
 #[account]
 pub struct TradingAccount {
@@ -73,5 +95,5 @@ pub struct TradingAccount {
     pub long: bool,
     pub closed: bool,
     pub latest_price: i64,
-    pub roi: i16,
+    pub roi: i64,
 }
