@@ -6,8 +6,8 @@ declare_id!("AatFTSmVdF4G6zdbqoUVfLJUq72FQSXuNwveSEkRJPQY");
 pub mod pythaplex {
     use super::*;
     
-    pub fn initialize(
-            ctx: Context<Initialize>,
+    pub fn create(
+            ctx: Context<Create>,
             authority: Pubkey) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         msg!("remaining_accounts length: {}", ctx.remaining_accounts.len());
@@ -27,8 +27,8 @@ pub mod pythaplex {
 
 // Transaction instructions
 #[derive(Accounts)]
-pub struct Initialize<'info> {
-    #[account(init, payer = user, space = 40+40+1+8+2)]
+pub struct Create<'info> {
+    #[account(init, payer = user, space = 40+40+1+1+8+2)]
     pub trading_account: Account<'info, TradingAccount>,
     #[account(mut)]
     pub user: Signer<'info>,

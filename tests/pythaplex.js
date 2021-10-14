@@ -16,9 +16,9 @@ describe('pythaplex', () => {
   anchor.setProvider(provider);
   const program = anchor.workspace.Pythaplex;
 
-  it('Initialize a trading account', async () => {
+  it('Create a trading account', async () => {
     const tradingAccount = anchor.web3.Keypair.generate();
-    const tx = await program.rpc.initialize(
+    const tx = await program.rpc.create(
       provider.wallet.publicKey,
       {
         accounts: {
