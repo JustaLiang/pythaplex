@@ -31,5 +31,32 @@ describe('pythaplex', () => {
       }
     );
     console.log("Your transaction signature", tx);
+    
+  });
+  it('Open long position', async () => {
+    const tradingAccount = anchor.web3.Keypair.generate();
+    const tx = await program.rpc.create(
+      provider.wallet.publicKey,
+      {
+        accounts: {
+          tradingAccount: tradingAccount.publicKey,
+          user: provider.wallet.publicKey,
+          systemProgram: SystemProgram.programId,
+        },
+        remainingAccounts: [pythOracle],
+        signers: [tradingAccount],
+      }
+    );
+    const openTx = await program.rpc.open(
+      true,
+      {
+        accounts: {
+          tradingAccount: tradingAccount.publicKey,
+          authority: provider.wallet.publicKey,
+        },
+        remainingAccounts: [pythOracle],
+      }
+    );
+    console.log("Your open transaction signature", openTx);
   });
 });
