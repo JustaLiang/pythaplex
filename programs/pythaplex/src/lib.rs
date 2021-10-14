@@ -14,6 +14,7 @@ pub mod pythaplex {
         let pyth_price_acc = &ctx.remaining_accounts[0];
         trading_account.authority = authority;
         trading_account.pyth_price_pubkey = *pyth_price_acc.key;
+        trading_account.long = true;
         trading_account.closed = true;
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
@@ -39,6 +40,7 @@ pub struct Initialize<'info> {
 pub struct TradingAccount {
     pub authority: Pubkey,
     pub pyth_price_pubkey: Pubkey,
+    pub long: bool,
     pub closed: bool,
     pub latest_price: i64,
     pub roi: i16,
