@@ -28,8 +28,11 @@ pub mod pythaplex {
     pub fn open(ctx: Context<Open>, open_long: bool) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         let pyth_price_acc = &ctx.remaining_accounts[0];
-        assert_eq!(trading_account.closed, true);
-        assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key));
+        assert_eq!(trading_account.closed, true,"Your position is open!");
+        if trading_account.pyth_price_pubkey!=(*pyth_price_acc.key) {
+            return Err(ProgramError::InvalidInstructionData);
+        }
+        // assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key),"You use different oracle!");
         //update price
         trading_account.long = open_long;
         trading_account.closed = false;
@@ -51,8 +54,8 @@ pub mod pythaplex {
     pub fn close(ctx: Context<Close>) -> ProgramResult {
         let trading_account = &mut ctx.accounts.trading_account;
         let pyth_price_acc = &ctx.remaining_accounts[0];
-        assert_eq!(trading_account.closed, false);
-        assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key));
+        assert_eq!(trading_account.closed, false,"Your position is closed!");
+        assert_eq!(trading_account.pyth_price_pubkey, (*pyth_price_acc.key),"You use different oracle!");
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
         trading_account.roi = (pyth_price_data.agg.price - trading_account.latest_price)
