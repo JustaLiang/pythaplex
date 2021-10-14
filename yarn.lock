@@ -9,10 +9,15 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@project-serum/anchor@^0.16.2":
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/@project-serum/anchor/-/anchor-0.16.2.tgz#b8b4ec4c749d59a224108f8d82ab68217ef752ae"
-  integrity sha512-wOJwObd4wOZ5tRRMCKYjeMNsEmf7vuC71KQRnw6wthhErL8c/818n4gYIZCf/1ZPl/8WPruIlmtQHDSEyy2+0Q==
+"@project-serum/anchor-cli@0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@project-serum/anchor-cli/-/anchor-cli-0.17.0.tgz#10b25242b470ac0bee2347efd5cfd56b983683b5"
+  integrity sha512-hDS/DgHE9bnJzcaIsedo/2z1qlbovJGIky+p1dCLNtfDeLSGttRG21+7PydI8WyfqSXGoQa3B1tbrrLvAlpwnQ==
+
+"@project-serum/anchor@0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@project-serum/anchor/-/anchor-0.17.0.tgz#99a2cc59cae2939c1db1197950b7b606319ea7a8"
+  integrity sha512-vctZHZD5rUP1WXUUaJFdKl+1u0dE+O2+jejmYcb0InAZiwXdGAW8mX47U902voT94PdCr0aNHuyOQ8I75nfinw==
   dependencies:
     "@project-serum/borsh" "^0.2.2"
     "@solana/web3.js" "^1.17.0"
