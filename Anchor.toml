@@ -1,12 +1,12 @@
 [programs.localnet]
-pythaplex = "7nuUCA6rP1GP2D84Z13EUtiDQTJJ7hWHzLx3GBF87VDG"
+pythaplex = "6rCK1Tq1bbTwz9eKjV7QFxq7J6rw4HrSTNKQUUQALxhs"
 
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
 cluster = "localnet"
-wallet = "/Users/jeffery.yh.lin/.config/solana/id.json"
+wallet = "id.json"
 
 [scripts]
 test = "mocha -t 1000000 tests/"

@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("7nuUCA6rP1GP2D84Z13EUtiDQTJJ7hWHzLx3GBF87VDG");
+declare_id!("6rCK1Tq1bbTwz9eKjV7QFxq7J6rw4HrSTNKQUUQALxhs");
 
 #[program]
 pub mod pythaplex {
@@ -38,9 +38,9 @@ pub mod pythaplex {
         trading_account.closed = false;
         let pyth_price_data = &pyth_price_acc.try_borrow_data()?;
         let pyth_price_data = pyth_client::cast::<pyth_client::Price>(pyth_price_data);
+        //update price
         trading_account.latest_price = pyth_price_data.agg.price;
         msg!("price: {}", trading_account.latest_price);
-        //set long position
 
         msg!(
             "open: {} position",
