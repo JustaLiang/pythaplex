@@ -9,13 +9,13 @@ describe('pythaplex', () => {
   const oracleSolUsd = {
     isSigner: false,
     isWritable: false,
-    pubkey: new PublicKey("H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG"),
+    pubkey: new PublicKey("J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix"),
   };
 
   const oracleAdaUsd = {
     isSigner: false,
     isWritable: false,
-    pubkey: new PublicKey("3pyn4svBbxJ9Wnn3RVeafyLWfzie6yC5eTig2S62v9SC"),
+    pubkey: new PublicKey("EdVCmQ9FSPcVe5YySXDPCRmc8aDQLKJ9xvYBMZPie1Vw"),
   }
 
   // Configure the client to use the local cluster.

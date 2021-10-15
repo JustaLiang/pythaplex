@@ -32,7 +32,7 @@ const programID = new PublicKey(idl.metadata.address);
 const oracleSolUsd = {
   isSigner: false,
   isWritable: false,
-  pubkey: new PublicKey("H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG"),
+  pubkey: new PublicKey("J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix"),
 };
 
 function App() {
