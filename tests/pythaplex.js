@@ -37,6 +37,7 @@ describe('pythaplex', () => {
         signers: [tradingAccount],
       }
     );
+    console.log(await program.account.tradingAccount.fetch(tradingAccount.publicKey))
   });
 
   it('Open long position', async () => {

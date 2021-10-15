@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("6rCK1Tq1bbTwz9eKjV7QFxq7J6rw4HrSTNKQUUQALxhs");
+declare_id!("GLHJS7kYqvN5F7MTez8sUFqV1NhXZLgXPQzSFXdkQ7hn");
 
 #[program]
 pub mod pythaplex {
