@@ -17,3 +17,4 @@ default = []
 [dependencies]
 anchor-lang = "0.17.0"
 pyth-client = "0.2.2"
+spl-token-metadata = "0.0.1"

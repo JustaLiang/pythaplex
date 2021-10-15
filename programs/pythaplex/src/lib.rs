@@ -7,6 +7,7 @@ pub mod pythaplex {
     use super::*;
 
     pub fn create(ctx: Context<Create>, authority: Pubkey) -> ProgramResult {
+        // setup trading account 
         let trading_account = &mut ctx.accounts.trading_account;
         msg!(
             "remaining_accounts length: {}",
@@ -81,7 +82,7 @@ pub mod pythaplex {
     }
 }
 
-// Transaction instructions
+// Create trading account
 #[derive(Accounts)]
 pub struct Create<'info> {
     #[account(init, payer = user, space = 40+40+1+8+8)]
@@ -91,6 +92,7 @@ pub struct Create<'info> {
     pub system_program: Program<'info, System>,
 }
 
+// Open position
 #[derive(Accounts)]
 pub struct Open<'info> {
     #[account(mut, has_one = authority)]
@@ -98,6 +100,7 @@ pub struct Open<'info> {
     pub authority: Signer<'info>,
 }
 
+// Close position
 #[derive(Accounts)]
 pub struct Close<'info> {
     #[account(mut, has_one = authority)]
@@ -105,7 +108,7 @@ pub struct Close<'info> {
     pub authority: Signer<'info>,
 }
 
-// An account storing trading info
+// Trading account to store trading info
 #[account]
 pub struct TradingAccount {
     pub authority: Pubkey,
@@ -115,7 +118,7 @@ pub struct TradingAccount {
     pub roi: i64,
 }
 
-//  
+// Custom error
 #[error]
 pub enum ErrCode {
     #[msg("using different oracle")]
